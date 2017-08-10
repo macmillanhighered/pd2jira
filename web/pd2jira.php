@@ -18,10 +18,10 @@ if ($messages) foreach ($messages->messages as $webhook) {
 
   // Begin Enhanced Logging
   error_log("---------------------------------------");
-  error_log("Incident Type: " . print_r($webhook->type));
-  error_log("Incident ID: " . print_r($webhook->data->incident->id));
-  error_log("Incident Number: " . print_r($webhook->data->incident->incident_number));
-  error_log("Pending Actions: " . print_r($webhook->data->incident->pending_actions));
+  error_log("Incident Type: " . print_r($webhook->type, true));
+  error_log("Incident ID: " . print_r($webhook->data->incident->id, true));
+  error_log("Incident Number: " . print_r($webhook->data->incident->incident_number, true));
+  error_log("Pending Actions: " . print_r($webhook->data->incident->pending_actions, true));
   error_log("---------------------------------------");
   // End Enhanced Logging
 
@@ -75,7 +75,7 @@ if ($messages) foreach ($messages->messages as $webhook) {
 
       // Begin Enhanced Logging
       if ($return)
-        error_log("Result of Attempt to Post to JIRA: " . print_r($return));
+        error_log("Result of Attempt to Post to JIRA: " . print_r($return, true));
       // End Enhanced Logging
 
       $status_code = $return['status_code'];
