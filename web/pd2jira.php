@@ -14,12 +14,12 @@ $pd_api_token = getenv('PAGERDUTY_API_TOKEN');
 
 // Begin Enhanced Logging
 if ($messages) {
-  error_log("---------------------------------------")
+  error_log("---------------------------------------");
   error_log("Incident Type: " . $messages->type);
   error_log("Incident ID: " . $messages->data->incident->id);
   error_log("Incident Number: " . $messages->data->incident->incident_number);
   error_log("Pending Actions: " . $messages->data->incident->pending_actions);
-  error_log("---------------------------------------")
+  error_log("---------------------------------------");
 }
 // End Enhanced Logging
 
@@ -76,7 +76,7 @@ if ($messages) foreach ($messages->messages as $webhook) {
 
       // Begin Enhanced Logging
       if ($return)
-        error_log("Result of Attempt to Post to JIRA: " . $return)
+        error_log("Result of Attempt to Post to JIRA: " . $return);
       // End Enhanced Logging
 
       $status_code = $return['status_code'];
