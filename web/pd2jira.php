@@ -12,6 +12,17 @@ $jira_issue_type = getenv('JIRA_ISSUE_TYPE');
 $pd_subdomain = getenv('PAGERDUTY_SUBDOMAIN');
 $pd_api_token = getenv('PAGERDUTY_API_TOKEN');
 
+// Begin Enhanced Logging
+if ($messages) {
+  error_log("---------------------------------------")
+  error_log("Incident Type: " . $messages->type);
+  error_log("Incident ID: " . $messages->data->incident->id);
+  error_log("Incident Number: " . $messages->data->incident->incident_number);
+  error_log("Pending Actions: " . $messages->data->incident->pending_actions);
+  error_log("---------------------------------------")
+}
+// End Enhanced Logging
+
 if ($messages) foreach ($messages->messages as $webhook) {
   $webhook_type = $webhook->type;
 
@@ -62,6 +73,12 @@ if ($messages) foreach ($messages->messages as $webhook) {
       $data_json = json_encode($data);
 
       $return = http_request($url, $data_json, "POST", "basic", $jira_username, $jira_password);
+
+      // Begin Enhanced Logging
+      if ($return)
+        error_log("Result of Attempt to Post to JIRA: " . $return)
+      // End Enhanced Logging
+
       $status_code = $return['status_code'];
       $response = $return['response'];
       $response_obj = json_decode($response);
