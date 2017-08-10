@@ -12,19 +12,18 @@ $jira_issue_type = getenv('JIRA_ISSUE_TYPE');
 $pd_subdomain = getenv('PAGERDUTY_SUBDOMAIN');
 $pd_api_token = getenv('PAGERDUTY_API_TOKEN');
 
-// Begin Enhanced Logging
-if ($messages) {
-  error_log("---------------------------------------");
-  error_log("Incident Type: " . $messages->type);
-  error_log("Incident ID: " . $messages->data->incident->id);
-  error_log("Incident Number: " . $messages->data->incident->incident_number);
-  error_log("Pending Actions: " . $messages->data->incident->pending_actions);
-  error_log("---------------------------------------");
-}
-// End Enhanced Logging
 
 if ($messages) foreach ($messages->messages as $webhook) {
   $webhook_type = $webhook->type;
+
+  // Begin Enhanced Logging
+  error_log("---------------------------------------");
+  error_log("Incident Type: " . print_r($webhook->type));
+  error_log("Incident ID: " . print_r($webhook->data->incident->id));
+  error_log("Incident Number: " . print_r($webhook->data->incident->incident_number));
+  error_log("Pending Actions: " . print_r($$webhook->data->incident->pending_actions));
+  error_log("---------------------------------------");
+  // End Enhanced Logging
 
   switch ($webhook_type) {
     case "incident.trigger":
@@ -76,7 +75,7 @@ if ($messages) foreach ($messages->messages as $webhook) {
 
       // Begin Enhanced Logging
       if ($return)
-        error_log("Result of Attempt to Post to JIRA: " . $return);
+        error_log("Result of Attempt to Post to JIRA: " . print_r($return));
       // End Enhanced Logging
 
       $status_code = $return['status_code'];
