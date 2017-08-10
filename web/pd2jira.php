@@ -21,7 +21,7 @@ if ($messages) foreach ($messages->messages as $webhook) {
   error_log("Incident Type: " . print_r($webhook->type));
   error_log("Incident ID: " . print_r($webhook->data->incident->id));
   error_log("Incident Number: " . print_r($webhook->data->incident->incident_number));
-  error_log("Pending Actions: " . print_r($$webhook->data->incident->pending_actions));
+  error_log("Pending Actions: " . print_r($webhook->data->incident->pending_actions));
   error_log("---------------------------------------");
   // End Enhanced Logging
 
